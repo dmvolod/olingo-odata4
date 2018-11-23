@@ -31,13 +31,14 @@
   <parent>
     <groupId>org.apache.olingo</groupId>
     <artifactId>odata-parent</artifactId>
-    <version>3.0.0-beta-01-SNAPSHOT</version>
+    <version>4.0.0-beta-02</version>
     <relativePath>..</relativePath>
   </parent>
 
   <modules>
     <module>android-lib</module>
     <module>client-lib</module>
+    <module>server-lib</module>
     <module>javadoc</module>
   </modules>
 
