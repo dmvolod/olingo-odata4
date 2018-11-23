@@ -240,7 +240,7 @@ public class BatchTestITCase extends AbstractTestITCase {
 
   @Test
   @SuppressWarnings("unchecked")
-  public void changesetWithReference() throws EdmPrimitiveTypeException {
+  public void changesetWithReference() throws Exception {
     // create your request
     final ODataBatchRequest request = client.getBatchRequestFactory().getBatchRequest(testStaticServiceRootURL);
     request.setAccept(ACCEPT);
@@ -263,16 +263,7 @@ public class BatchTestITCase extends AbstractTestITCase {
     // add update request: link CustomerInfo(17) to the new customer
     final ODataEntity customerChanges = client.getObjectFactory().newEntity(order.getTypeName());
     customerChanges.addLink(client.getObjectFactory().newEntitySetNavigationLink(
-            "OrderDetails",
-            client.newURIBuilder(testStaticServiceRootURL).appendEntitySetSegment("OrderDetails").
-            appendKeySegment(new HashMap<String, Object>() {
-              private static final long serialVersionUID = 3109256773218160485L;
-
-              {
-                put("OrderID", 7);
-                put("ProductID", 5);
-              }
-            }).build()));
+    		"OrderDetails", new URI(testStaticServiceRootURL + "/OrderDetails(OrderID=7,ProductID=5)")));
 
     final ODataEntityUpdateRequest<ODataEntity> updateReq = client.getCUDRequestFactory().getEntityUpdateRequest(
             URI.create("$" + createRequestRef), UpdateType.PATCH, customerChanges);
