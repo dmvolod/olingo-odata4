@@ -24,6 +24,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
@@ -46,10 +47,13 @@ import java.util.TreeMap;
  */
 public final class ContentType {
 
-  private static final String APPLICATION = "application";
   private static final String TEXT = "text";
   private static final String MULTIPART = "multipart";
 
+  public static final String APPLICATION = "application";
+  public static final String HTTP = "http";
+  public static final String PARAMETER_CHARSET = "charset";
+  
   public static final ContentType APPLICATION_XML = new ContentType(APPLICATION, "xml", null);
   public static final ContentType APPLICATION_ATOM_XML = new ContentType(APPLICATION, "atom+xml", null);
   public static final ContentType APPLICATION_ATOM_XML_ENTRY = create(APPLICATION_ATOM_XML, "type=entry");
@@ -241,6 +245,16 @@ public final class ContentType {
    */
   public Map<String, String> getParameters() {
     return Collections.unmodifiableMap(parameters);
+  }
+  
+  /**
+   * Returns the value of a given parameter.
+   * If the parameter does not exist the method returns null.
+   * @param name the name of the parameter to get (case-insensitive)
+   * @return the value of the parameter or <code>null</code> if the parameter is not present
+   */
+  public String getParameter(final String name) {
+    return parameters.get(name.toLowerCase(Locale.ROOT));
   }
 
   @Override
