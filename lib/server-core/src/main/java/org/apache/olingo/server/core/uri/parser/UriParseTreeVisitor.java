@@ -223,7 +223,8 @@ public class UriParseTreeVisitor extends UriParserBaseVisitor<Object> {
   public UriParseTreeVisitor(final Edm edm, final UriContext context) {
     this.edm = edm;
     this.context = context;
-    edmEntityContainer = edm.getEntityContainer(null);
+    // Use first schema instead of null value
+    edmEntityContainer = edm.getSchemas().get(0).getEntityContainer();
   }
 
   @Override
